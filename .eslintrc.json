@@ -1,7 +1,8 @@
 {
   "env": {
     "browser": true,
-    "es2021": true
+    "es2021": true,
+    "jest": true
   },
   "extends": [
     "eslint:recommended",
@@ -31,5 +32,11 @@
       "typescript": {}
     }
   },
-  "ignorePatterns": ["node_modules/", "dist/", "build/", "coverage/"]
+  "ignorePatterns": [
+    "node_modules/",
+    "dist/",
+    "build/",
+    "coverage/",
+    "metro.config.js"
+  ]
 }
