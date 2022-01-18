@@ -1,12 +1,13 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { ThemeProvider } from 'styled-components'
 import { Dashboard } from './src/screens/Dashboard'
+
+import theme from './src/global/styles/theme'
 
 export function App() {
   return (
-    <View>
+    <ThemeProvider theme={theme}>
       <Dashboard />
-      <Text>Luana Cunha</Text>
-    </View>
+    </ThemeProvider>
   )
 }

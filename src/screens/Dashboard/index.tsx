@@ -1,10 +1,11 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+
+import * as S from './styles'
 
 export function Dashboard() {
   return (
-    <View>
-      <Text>Dashboard</Text>
-    </View>
+    <S.Container>
+      <S.Title>DashBoard</S.Title>
+    </S.Container>
   )
 }
