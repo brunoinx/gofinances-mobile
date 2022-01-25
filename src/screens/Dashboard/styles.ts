@@ -1,15 +1,15 @@
-import styled from 'styled-components/native'
+import styled, { css } from 'styled-components/native'
 
 export const Container = styled.View`
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-
-  background-color: ${({ theme }) => theme.colors.secondary};
+  ${({ theme }) => css`
+    flex: 1;
+    background-color: ${theme.colors.secondary};
+  `}
 `
 
-export const Title = styled.Text`
-  font-size: 22px;
-  color: #333;
-  font-weight: bold;
+export const Header = styled.View`
+  ${({ theme }) => css`
+    width: 100%;
+    background-color: ${theme.colors.primary};
+  `}
 `

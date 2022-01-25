@@ -5,7 +5,7 @@ import * as S from './styles'
 export function Dashboard() {
   return (
     <S.Container>
-      <S.Title>DashBoard</S.Title>
+      <S.Header />
     </S.Container>
   )
 }
