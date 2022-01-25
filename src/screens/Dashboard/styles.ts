@@ -17,6 +17,7 @@ export const Header = styled.View`
     background-color: ${theme.colors.primary};
 
     padding-top: ${getStatusBarHeight() + RFPercentage(3)}px;
+    position: relative;
   `}
 `
 
@@ -63,4 +64,27 @@ export const Icon = styled(Feather)`
   color: ${({ theme }) => theme.colors.secondary};
   font-size: ${RFPercentage(3.5)}px;
   margin-left: ${RFPercentage(3)}px;
+`
+
+export const ListCards = styled.ScrollView.attrs({
+  showsHorizontalScrollIndicator: false,
+  horizontal: true,
+  contentContainerStyle: {
+    paddingHorizontal: RFPercentage(2.4),
+  },
+})`
+  position: absolute;
+  bottom: ${RFPercentage(-6)}px;
+`
+
+export const Content = styled.View`
+  flex: 1;
+  padding: 0 ${RFPercentage(4)}px;
+`
+
+export const Title = styled.Text`
+  margin-top: ${RFPercentage(12)}px;
+  margin-bottom: ${RFPercentage(1.5)}px;
+  font-size: ${RFPercentage(2.5)}px;
+  font-family: ${({ theme }) => theme.fonts.text_400};
 `
