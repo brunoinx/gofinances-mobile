@@ -45,14 +45,14 @@ export const User = styled.View`
 `
 
 export const UserGretting = styled.Text`
-  font-size: ${RFPercentage(2.5)}px;
+  font-size: ${RFPercentage(2.3)}px;
   font-family: ${({ theme }) => theme.fonts.text_400};
   color: ${({ theme }) => theme.colors.background};
 `
 
 export const UserName = styled.Text`
   color: ${({ theme }) => theme.colors.background};
-  font-size: ${RFPercentage(2.5)}px;
+  font-size: ${RFPercentage(2.3)}px;
   font-family: ${({ theme }) => theme.fonts.text_700};
 `
 
@@ -79,11 +79,11 @@ export const ListCards = styled.ScrollView.attrs({
 
 export const Content = styled.View`
   flex: 1;
-  padding: 0 ${RFPercentage(4)}px;
+  padding: 0 ${RFPercentage(3)}px;
 `
 
 export const Title = styled.Text`
-  margin-top: ${RFPercentage(12)}px;
+  margin-top: ${RFPercentage(10)}px;
   margin-bottom: ${RFPercentage(1.5)}px;
   font-size: ${RFPercentage(2.5)}px;
   font-family: ${({ theme }) => theme.fonts.text_400};

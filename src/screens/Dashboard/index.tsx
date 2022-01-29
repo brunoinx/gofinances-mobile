@@ -5,6 +5,7 @@ import { useTheme } from 'styled-components'
 import { Card } from '@/components/Card'
 
 import * as S from './styles'
+import { Moviment } from '@/components/Moviment'
 
 export function Dashboard() {
   const theme = useTheme()
@@ -55,9 +56,20 @@ export function Dashboard() {
         <S.Title>Transações</S.Title>
 
         <FlatList
-          data={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+          data={[1, 2, 3, 4, 5, 6]}
           keyExtractor={item => String(item)}
-          renderItem={() => <Text>oi</Text>}
+          renderItem={() => (
+            <Moviment
+              data={{
+                title: 'Conta de Luz',
+                amount: 'R$ 1.000,00',
+                type: 'positive',
+                date: '13/04/2020',
+              }}
+            />
+          )}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 40 }}
         />
       </S.Content>
     </S.Container>
