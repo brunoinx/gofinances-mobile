@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { View, StatusBar, Modal } from 'react-native'
 import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 import { Button } from '@/components/Form/Button'
 import { CategorySelectButton } from '@/components/Form/CategorySelectButton'
@@ -11,7 +12,7 @@ import { CategorySelect } from '@/screens/CategorySelect'
 import * as S from './styles'
 import { InputForm } from '@/components/Form/InputForm'
 
-type FormData = {
+export type FormData = {
   name: string
   amount: string
 }

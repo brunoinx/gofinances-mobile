@@ -1,16 +1,16 @@
 import React from 'react'
-import { RectButtonProps } from 'react-native-gesture-handler'
 
 import * as S from './styles'
 
-type Props = RectButtonProps & {
+type Props = {
   title: string
+  onPress: () => void
 }
 
-export function Button({ title, ...rest }: Props) {
+export function Button({ title, onPress }: Props) {
   return (
     <S.RootView>
-      <S.Container {...rest}>
+      <S.Container onPress={onPress}>
         <S.Title>{title}</S.Title>
       </S.Container>
     </S.RootView>
