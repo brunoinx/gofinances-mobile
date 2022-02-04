@@ -9,8 +9,10 @@ type Props = RectButtonProps & {
 
 export function Button({ title, ...rest }: Props) {
   return (
-    <S.Container {...rest}>
-      <S.Title>{title}</S.Title>
-    </S.Container>
+    <S.RootView>
+      <S.Container {...rest}>
+        <S.Title>{title}</S.Title>
+      </S.Container>
+    </S.RootView>
   )
 }

@@ -1,21 +1,26 @@
 import React, { useState } from 'react'
 import { View, StatusBar, Modal } from 'react-native'
+import { useForm } from 'react-hook-form'
 
 import { Button } from '@/components/Form/Button'
-import { Input } from '@/components/Form/Input'
 import { CategorySelectButton } from '@/components/Form/CategorySelectButton'
 import { TransactionTypeButton } from '@/components/Form/TransactionTypeButton'
-import { categories } from '@/mocks/categories'
 
 import { CategorySelect } from '@/screens/CategorySelect'
 
 import * as S from './styles'
+import { InputForm } from '@/components/Form/InputForm'
+
+type FormData = {
+  name: string
+  amount: string
+}
 
 export function Register() {
+  const { control, handleSubmit } = useForm()
+
   const [transactionType, setTransactionType] = useState('')
-
   const [categoryModalOpen, setCategoryModalOpen] = useState(false)
-
   const [category, setCategory] = useState({
     key: 'category',
     name: 'Categoria',
@@ -33,6 +38,15 @@ export function Register() {
     setCategoryModalOpen(false)
   }
 
+  function handleRegister({ name, amount }: FormData) {
+    const data = {
+      name,
+      amount: Number(amount),
+      transactionType,
+    }
+    console.log(data)
+  }
+
   return (
     <S.Container>
       <StatusBar
@@ -46,12 +60,19 @@ export function Register() {
 
       <S.Form>
         <View>
-          <Input
+          <InputForm
+            name="name"
+            control={control}
             placeholder="Nome"
             autoCapitalize="sentences"
             autoCorrect={false}
           />
-          <Input placeholder="Preço" keyboardType="numeric" />
+          <InputForm
+            name="amount"
+            control={control}
+            placeholder="Preço"
+            keyboardType="numeric"
+          />
 
           <S.TransactionsType>
             <TransactionTypeButton
@@ -75,11 +96,12 @@ export function Register() {
           />
         </View>
 
-        <Button title="Enviar" onPress={() => console.log('oi')} />
+        <Button title="Enviar" onPress={handleSubmit(handleRegister)} />
       </S.Form>
 
       <Modal
         visible={categoryModalOpen}
+        animationType="slide"
         onRequestClose={handleCloseSelectCategoryModal}>
         <CategorySelect
           category={category}
