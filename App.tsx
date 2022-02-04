@@ -7,10 +7,9 @@ import {
   Poppins_500Medium,
   Poppins_700Bold,
 } from '@expo-google-fonts/poppins'
-
-import { Register } from './src/screens/Register'
-
 import theme from './src/global/styles/theme'
+
+import { Routes } from '@/routes'
 
 export function App() {
   const [fontsLoaded] = useFonts({
@@ -25,7 +24,7 @@ export function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Register />
+      <Routes />
     </ThemeProvider>
   )
 }
