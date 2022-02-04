@@ -9,9 +9,10 @@ import * as S from './styles'
 type InputFormProps = {
   name: string
   control: Control
+  errors: string
 } & TextInputProps
 
-export function InputForm({ name, control, ...rest }: InputFormProps) {
+export function InputForm({ name, control, errors, ...rest }: InputFormProps) {
   return (
     <S.Container>
       <Controller
@@ -21,6 +22,8 @@ export function InputForm({ name, control, ...rest }: InputFormProps) {
           <Input onChangeText={onChange} value={value} {...rest} />
         )}
       />
+
+      {!!errors && <S.ErrorText>{errors}</S.ErrorText>}
     </S.Container>
   )
 }
