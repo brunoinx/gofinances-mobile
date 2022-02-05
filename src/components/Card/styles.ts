@@ -13,10 +13,10 @@ export const Container = styled.View<TypeProps>`
       ? theme.colors.secondary
       : theme.colors.shape};
 
-    width: ${Dimensions.get('window').width - RFP(12)}px;
+    width: ${Dimensions.get('window').width - RFP(11)}px;
     border-radius: ${RFP(0.7)}px;
 
-    padding: ${RFP(3)}px;
+    padding: ${RFP(3)}px ${RFP(3)}px ${RFP(1.8)}px;
     margin: ${RFP(1)}px;
 
     box-shadow: 2px 1px 2px ${theme.colors.shadow};

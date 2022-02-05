@@ -1,5 +1,11 @@
 import React, { useState } from 'react'
-import { View, StatusBar, Modal } from 'react-native'
+import {
+  View,
+  StatusBar,
+  Modal,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from 'react-native'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as Yup from 'yup'
@@ -64,69 +70,71 @@ export function Register() {
   }
 
   return (
-    <S.Container>
-      <StatusBar
-        barStyle="light-content"
-        backgroundColor="transparent"
-        translucent
-      />
-      <S.Header>
-        <S.HeaderTitle>Cadastro</S.HeaderTitle>
-      </S.Header>
-
-      <S.Form>
-        <View>
-          <InputForm
-            name="name"
-            control={control}
-            placeholder="Nome"
-            autoCapitalize="sentences"
-            autoCorrect={false}
-            errors={errors.name?.message}
-          />
-          <InputForm
-            name="amount"
-            control={control}
-            placeholder="Preço"
-            keyboardType="numeric"
-            errors={errors.amount?.message}
-          />
-
-          <S.TransactionsType>
-            <TransactionTypeButton
-              type="up"
-              title="Income"
-              onPress={() => handleTransactionsTypeSelect('income')}
-              isActive={transactionType === 'income'}
-            />
-
-            <TransactionTypeButton
-              type="down"
-              title="Outcome"
-              onPress={() => handleTransactionsTypeSelect('outcome')}
-              isActive={transactionType === 'outcome'}
-            />
-          </S.TransactionsType>
-
-          <CategorySelectButton
-            label={category.name || 'Categoria'}
-            onPress={handleOpenSelectCategoryModal}
-          />
-        </View>
-
-        <Button title="Enviar" onPress={handleSubmit(handleRegister)} />
-      </S.Form>
-
-      <Modal
-        visible={categoryModalOpen}
-        animationType="slide"
-        onRequestClose={handleCloseSelectCategoryModal}>
-        <CategorySelect
-          category={category}
-          setCategory={setCategory}
-          closeSelectCategory={handleCloseSelectCategoryModal}
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <S.Container>
+        <StatusBar
+          barStyle="light-content"
+          backgroundColor="transparent"
+          translucent
         />
-      </Modal>
-    </S.Container>
+        <S.Header>
+          <S.HeaderTitle>Cadastro</S.HeaderTitle>
+        </S.Header>
+
+        <S.Form>
+          <View>
+            <InputForm
+              name="name"
+              control={control}
+              placeholder="Nome"
+              autoCapitalize="sentences"
+              autoCorrect={false}
+              errors={errors.name?.message}
+            />
+            <InputForm
+              name="amount"
+              control={control}
+              placeholder="Preço"
+              keyboardType="numeric"
+              errors={errors.amount?.message}
+            />
+
+            <S.TransactionsType>
+              <TransactionTypeButton
+                type="up"
+                title="Income"
+                onPress={() => handleTransactionsTypeSelect('income')}
+                isActive={transactionType === 'income'}
+              />
+
+              <TransactionTypeButton
+                type="down"
+                title="Outcome"
+                onPress={() => handleTransactionsTypeSelect('outcome')}
+                isActive={transactionType === 'outcome'}
+              />
+            </S.TransactionsType>
+
+            <CategorySelectButton
+              label={category.name || 'Categoria'}
+              onPress={handleOpenSelectCategoryModal}
+            />
+          </View>
+
+          <Button title="Enviar" onPress={handleSubmit(handleRegister)} />
+        </S.Form>
+
+        <Modal
+          visible={categoryModalOpen}
+          animationType="slide"
+          onRequestClose={handleCloseSelectCategoryModal}>
+          <CategorySelect
+            category={category}
+            setCategory={setCategory}
+            closeSelectCategory={handleCloseSelectCategoryModal}
+          />
+        </Modal>
+      </S.Container>
+    </TouchableWithoutFeedback>
   )
 }

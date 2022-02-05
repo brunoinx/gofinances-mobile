@@ -69,7 +69,7 @@ export function Dashboard() {
             />
           )}
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: 40 }}
+          contentContainerStyle={{ paddingBottom: 20 }}
         />
       </S.Content>
     </S.Container>
