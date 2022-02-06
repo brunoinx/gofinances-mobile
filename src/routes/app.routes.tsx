@@ -1,29 +1,38 @@
 import React from 'react'
 import { MaterialIcons } from '@expo/vector-icons'
 import { useTheme } from 'styled-components'
+import { RFPercentage } from 'react-native-responsive-fontsize'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 import { Dashboard } from '@/screens/Dashboard'
 import { Register } from '@/screens/Register'
 import { Platform } from 'react-native'
-import { RFPercentage } from 'react-native-responsive-fontsize'
+import { RouteScreenProps } from '@/dtos/RootParamsListDTO'
 
-const { Navigator, Screen } = createBottomTabNavigator()
+type NameIconProps = {
+  screen: 'Dashboard' | 'Register' | 'Resume'
+  name: 'format-list-bulleted' | 'attach-money' | 'pie-chart'
+}
+
+const { Navigator, Screen } = createBottomTabNavigator<RouteScreenProps>()
 
 export function AppRoutes() {
   const { colors, fonts } = useTheme()
 
-  const icons = {
-    Listagem: {
+  const icons: NameIconProps[] = [
+    {
+      screen: 'Dashboard',
       name: 'format-list-bulleted',
     },
-    Registro: {
+    {
+      screen: 'Register',
       name: 'attach-money',
     },
-    Resumo: {
+    {
+      screen: 'Resume',
       name: 'pie-chart',
     },
-  }
+  ]
 
   return (
     <Navigator
@@ -34,7 +43,8 @@ export function AppRoutes() {
         tabBarInactiveTintColor: colors.text,
         tabBarLabelPosition: 'beside-icon',
         tabBarIcon: ({ size, color }) => {
-          const { name } = icons[route.name]
+          const { name } = icons.find(({ screen }) => screen === route.name)
+
           return <MaterialIcons name={name} size={size} color={color} />
         },
         tabBarStyle: {
@@ -47,9 +57,27 @@ export function AppRoutes() {
           fontFamily: fonts.text_400,
         },
       })}>
-      <Screen name="Listagem" component={Dashboard} />
-      <Screen name="Registro" component={Register} />
-      <Screen name="Resumo" component={Register} />
+      <Screen
+        name="Dashboard"
+        component={Dashboard}
+        options={{
+          tabBarLabel: 'Listagem',
+        }}
+      />
+      <Screen
+        name="Register"
+        component={Register}
+        options={{
+          tabBarLabel: 'Registro',
+        }}
+      />
+      <Screen
+        name="Resume"
+        component={Register}
+        options={{
+          tabBarLabel: 'Resumo',
+        }}
+      />
     </Navigator>
   )
 }
