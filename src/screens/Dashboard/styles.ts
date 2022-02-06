@@ -1,4 +1,8 @@
 import styled, { css } from 'styled-components/native'
+import {
+  BorderlessButton,
+  GestureHandlerRootView,
+} from 'react-native-gesture-handler'
 import { RFPercentage as RFP } from 'react-native-responsive-fontsize'
 import { getStatusBarHeight } from 'react-native-iphone-x-helper'
 import { Feather } from '@expo/vector-icons'
@@ -56,14 +60,13 @@ export const UserName = styled.Text`
   font-family: ${({ theme }) => theme.fonts.text_700};
 `
 
-export const Logout = styled.TouchableOpacity.attrs({
-  activeOpacity: 0.8,
-})``
+export const ContainerLogout = styled(GestureHandlerRootView)``
+
+export const Logout = styled(BorderlessButton)``
 
 export const Icon = styled(Feather)`
   color: ${({ theme }) => theme.colors.secondary};
   font-size: ${RFP(3.5)}px;
-  margin-left: ${RFP(3)}px;
 `
 
 export const ListCards = styled.ScrollView.attrs({

@@ -20,7 +20,7 @@ export const Container = styled.View`
 export const Title = styled.Text`
   ${({ theme }) => css`
     font-size: ${RFValue(14)}px;
-    font-family: ${theme.fonts.text_400};
+    font-family: ${theme.fonts.text_500};
     color: ${theme.colors.title};
   `}
 `
@@ -29,6 +29,7 @@ export const Amount = styled.Text<TransactionProps>`
   ${({ theme, type }) => css`
     font-size: ${RFValue(19)}px;
     font-family: ${theme.fonts.text_400};
+    margin-top: 8px;
     color: ${type === 'positive'
       ? theme.colors.success
       : theme.colors.attention};

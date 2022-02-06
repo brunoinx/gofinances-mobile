@@ -1,14 +1,26 @@
-import React from 'react'
-import { FlatList, Text } from 'react-native'
+import React, { useEffect } from 'react'
+import { FlatList } from 'react-native'
 import { useTheme } from 'styled-components'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import { Card } from '@/components/Card'
-
-import * as S from './styles'
 import { Moviment } from '@/components/Moviment'
+
+import { registerTransactionKey } from '@/keys'
+import * as S from './styles'
 
 export function Dashboard() {
   const theme = useTheme()
+
+  useEffect(() => {
+    async function loadTransactions() {
+      const transactions = await AsyncStorage.getItem(registerTransactionKey)
+
+      console.log(JSON.parse(transactions))
+    }
+
+    loadTransactions()
+  }, [])
 
   return (
     <S.Container>
@@ -23,9 +35,11 @@ export function Dashboard() {
             </S.User>
           </S.UserInfo>
 
-          <S.Logout onPress={() => ''}>
-            <S.Icon name="power" size={24} color={theme.colors.attention} />
-          </S.Logout>
+          <S.ContainerLogout>
+            <S.Logout onPress={() => console.log('oi')}>
+              <S.Icon name="power" size={24} color={theme.colors.attention} />
+            </S.Logout>
+          </S.ContainerLogout>
         </S.HeaderTop>
 
         <S.ListCards>
