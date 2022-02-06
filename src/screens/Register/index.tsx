@@ -1,11 +1,5 @@
 import React, { useState } from 'react'
-import {
-  View,
-  StatusBar,
-  Modal,
-  TouchableWithoutFeedback,
-  Keyboard,
-} from 'react-native'
+import { View, Modal, TouchableWithoutFeedback, Keyboard } from 'react-native'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as Yup from 'yup'
@@ -72,11 +66,6 @@ export function Register() {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <S.Container>
-        <StatusBar
-          barStyle="light-content"
-          backgroundColor="transparent"
-          translucent
-        />
         <S.Header>
           <S.HeaderTitle>Cadastro</S.HeaderTitle>
         </S.Header>

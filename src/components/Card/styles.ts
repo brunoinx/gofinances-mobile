@@ -13,7 +13,7 @@ export const Container = styled.View<TypeProps>`
       ? theme.colors.secondary
       : theme.colors.shape};
 
-    width: ${Dimensions.get('window').width - RFP(11)}px;
+    width: ${Dimensions.get('window').width - RFP(10)}px;
     border-radius: ${RFP(0.7)}px;
 
     padding: ${RFP(3)}px ${RFP(3)}px ${RFP(1.8)}px;
@@ -38,11 +38,13 @@ export const Title = styled.Text<TypeProps>`
   `}
 `
 
+export const Footer = styled.View``
+
 export const Amount = styled.Text<TypeProps>`
   font-family: ${({ theme }) => theme.fonts.text_500};
   font-size: ${RFP(4)}px;
 
-  margin-top: ${RFP(4)}px;
+  margin-top: ${RFP(3)}px;
 
   color: ${({ theme, type }) =>
     type === 'dollar' ? theme.colors.shape : '#000'};
@@ -83,5 +85,3 @@ export const Icon = styled(Feather)<TypeProps>`
     }
   `}
 `
-
-export const Footer = styled.View``

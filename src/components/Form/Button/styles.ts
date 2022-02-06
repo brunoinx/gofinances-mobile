@@ -11,7 +11,7 @@ export const Container = styled(RectButton)`
   ${({ theme }) => css`
     width: 100%;
     background: ${theme.colors.secondary};
-    padding: 18px;
+    padding: 16px;
     border-radius: 5px;
     align-items: center;
   `}
