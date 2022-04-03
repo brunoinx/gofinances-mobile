@@ -49,7 +49,11 @@ buck-out/
 # CocoaPods
 /ios/Pods/
 
+# Storage
+src/keys/
+
 # Expo
 .expo/
 web-build/
 dist/
+.env
