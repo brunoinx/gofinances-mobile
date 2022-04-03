@@ -24,6 +24,7 @@ import { transactionKey } from '@/keys'
 import { RootParamsListProps } from '@/dtos/RootParamsListDTO'
 
 import * as S from './styles'
+import { Header } from '@/components/Header'
 
 export type FormData = {
   name: string
@@ -107,9 +108,7 @@ export function Register() {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <S.Container>
-        <S.Header>
-          <S.HeaderTitle>Cadastro</S.HeaderTitle>
-        </S.Header>
+        <Header title="Cadastro" />
 
         <S.Form>
           <View>
