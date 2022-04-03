@@ -1,12 +1,14 @@
 import React from 'react'
-import { MaterialIcons } from '@expo/vector-icons'
+import { Platform } from 'react-native'
 import { useTheme } from 'styled-components'
+import { MaterialIcons } from '@expo/vector-icons'
 import { RFPercentage } from 'react-native-responsive-fontsize'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 import { Dashboard } from '@/screens/Dashboard'
 import { Register } from '@/screens/Register'
-import { Platform } from 'react-native'
+import { Resume } from '@/screens/Resume'
+
 import { RouteScreenProps } from '@/dtos/RootParamsListDTO'
 
 type NameIconProps = {
@@ -73,7 +75,7 @@ export function AppRoutes() {
       />
       <Screen
         name="Resume"
-        component={Register}
+        component={Resume}
         options={{
           tabBarLabel: 'Resumo',
         }}
