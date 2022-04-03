@@ -3,17 +3,18 @@ import { FlatList } from 'react-native'
 import { Button } from '../../components/Form/Button'
 
 import { categories } from '@/mocks/categories'
+import { CategoryKeyProps } from '@/dtos/transactionDTO'
 
 import * as S from './styles'
 
-interface Category {
-  key: string
+type CategoryProps = {
+  key: CategoryKeyProps
   name: string
 }
 
 interface Props {
-  category: Category
-  setCategory: (category: Category) => void
+  category: CategoryProps
+  setCategory: (category: CategoryProps) => void
   closeSelectCategory: () => void
 }
 
@@ -22,7 +23,7 @@ export function CategorySelect({
   setCategory,
   closeSelectCategory,
 }: Props) {
-  function handleCategorySelect(category: Category) {
+  function handleCategorySelect(category: CategoryProps) {
     setCategory(category)
   }
 
@@ -37,7 +38,7 @@ export function CategorySelect({
         keyExtractor={item => item.key}
         renderItem={({ item }) => (
           <S.Category
-            onPress={() => handleCategorySelect(item)}
+            onPress={() => handleCategorySelect(item as CategoryProps)}
             isActive={category.key === item.key}>
             <S.Icon name={item.icon} />
             <S.Name>{item.name}</S.Name>

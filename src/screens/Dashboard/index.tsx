@@ -2,14 +2,13 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { useFocusEffect } from '@react-navigation/native'
 import { FlatList } from 'react-native'
 import { useTheme } from 'styled-components'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import { Card } from '@/components/Card'
 import { Moviment } from '@/components/Moviment'
 
-import { transactionKey } from '@/keys'
 import { formatToMoney } from '@/utils/formatToMoney'
 import { TransactionDTO } from '@/dtos/transactionDTO'
+import { getTransactions } from '@/storage/transactions'
 
 import * as S from './styles'
 import { format } from 'date-fns'
@@ -46,8 +45,7 @@ export function Dashboard() {
 
   async function loadTransactions() {
     try {
-      const response = await AsyncStorage.getItem(transactionKey)
-      const transactions = response !== null ? JSON.parse(response) : null
+      const transactions = await getTransactions()
 
       let entriesTotal = 0
       let expensiveTotal = 0

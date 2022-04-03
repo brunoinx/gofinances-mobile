@@ -7,7 +7,6 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import uuid from 'react-native-uuid'
@@ -20,11 +19,17 @@ import { TransactionTypeButton } from '@/components/Form/TransactionTypeButton'
 
 import { CategorySelect } from '@/screens/CategorySelect'
 
-import { transactionKey } from '@/keys'
 import { RootParamsListProps } from '@/dtos/RootParamsListDTO'
 
 import * as S from './styles'
 import { Header } from '@/components/Header'
+import { getTransactions, setTransactions } from '@/storage/transactions'
+import { CategoryKeyProps, TransactionDTO } from '@/dtos/transactionDTO'
+
+type CategoryProps = {
+  key: CategoryKeyProps
+  name: string
+}
 
 export type FormData = {
   name: string
@@ -51,12 +56,11 @@ export function Register() {
 
   const navigation = useNavigation<RootParamsListProps>()
 
-  const [transactionType, setTransactionType] = useState('')
+  const [transactionType, setTransactionType] = useState<
+    'income' | 'outcome' | ''
+  >('')
   const [categoryModalOpen, setCategoryModalOpen] = useState(false)
-  const [category, setCategory] = useState({
-    key: 'category',
-    name: 'Categoria',
-  })
+  const [category, setCategory] = useState({} as CategoryProps)
 
   function handleTransactionsTypeSelect(type: 'income' | 'outcome') {
     setTransactionType(type)
@@ -73,9 +77,9 @@ export function Register() {
   async function handleRegister({ name, amount }: FormData) {
     if (!transactionType) return Alert.alert('Selecione o tipo da transação')
 
-    if (category.key === 'category') return Alert.alert('Selecione a categoria')
+    if (!category.key) return Alert.alert('Selecione a categoria')
 
-    const newTransaction = {
+    const newTransaction: TransactionDTO = {
       id: String(uuid.v4()),
       name,
       amount: Number(amount),
@@ -85,19 +89,15 @@ export function Register() {
     }
 
     try {
-      const data = await AsyncStorage.getItem(transactionKey)
-      const currentData = data !== null ? JSON.parse(data) : []
+      const currentData = await getTransactions()
 
       const dataFormatted = [...currentData, newTransaction]
 
-      await AsyncStorage.setItem(transactionKey, JSON.stringify(dataFormatted))
+      setTransactions(dataFormatted)
 
       reset()
       setTransactionType('')
-      setCategory({
-        key: 'category',
-        name: 'Categoria',
-      })
+      setCategory({} as CategoryProps)
 
       navigation.navigate('Dashboard')
     } catch (error) {
