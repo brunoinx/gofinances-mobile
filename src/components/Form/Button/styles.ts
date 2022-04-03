@@ -7,7 +7,7 @@ import { RFValue } from 'react-native-responsive-fontsize'
 
 export const RootView = styled(GestureHandlerRootView)``
 
-export const Container = styled(RectButton)`
+export const Container = styled.TouchableOpacity`
   ${({ theme }) => css`
     width: 100%;
     background: ${theme.colors.secondary};

@@ -20,7 +20,7 @@ import { TransactionTypeButton } from '@/components/Form/TransactionTypeButton'
 
 import { CategorySelect } from '@/screens/CategorySelect'
 
-import { registerTransactionKey } from '@/keys'
+import { transactionKey } from '@/keys'
 import { RootParamsListProps } from '@/dtos/RootParamsListDTO'
 
 import * as S from './styles'
@@ -84,15 +84,12 @@ export function Register() {
     }
 
     try {
-      const data = await AsyncStorage.getItem(registerTransactionKey)
+      const data = await AsyncStorage.getItem(transactionKey)
       const currentData = data !== null ? JSON.parse(data) : []
 
       const dataFormatted = [...currentData, newTransaction]
 
-      await AsyncStorage.setItem(
-        registerTransactionKey,
-        JSON.stringify(dataFormatted),
-      )
+      await AsyncStorage.setItem(transactionKey, JSON.stringify(dataFormatted))
 
       reset()
       setTransactionType('')
@@ -103,7 +100,7 @@ export function Register() {
 
       navigation.navigate('Dashboard')
     } catch (error) {
-      console.log(error)
+      Alert.alert('Erro ao salvar a transação')
     }
   }
 

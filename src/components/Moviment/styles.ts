@@ -3,13 +3,13 @@ import { RFPercentage, RFValue } from 'react-native-responsive-fontsize'
 import { Feather } from '@expo/vector-icons'
 
 type TransactionProps = {
-  type: 'positive' | 'negative'
+  type: 'income' | 'outcome'
 }
 
 export const Container = styled.View`
   ${({ theme }) => css`
     width: 100%;
-    padding: ${RFValue(10)}px 24px;
+    padding: ${RFValue(16)}px 24px 10px;
     border-radius: 8px;
     margin-bottom: 16px;
 
@@ -19,20 +19,19 @@ export const Container = styled.View`
 
 export const Title = styled.Text`
   ${({ theme }) => css`
-    font-size: ${RFValue(14)}px;
+    font-size: ${RFValue(17)}px;
     font-family: ${theme.fonts.text_500};
     color: ${theme.colors.title};
+    text-transform: capitalize;
   `}
 `
 
 export const Amount = styled.Text<TransactionProps>`
   ${({ theme, type }) => css`
-    font-size: ${RFValue(19)}px;
+    font-size: ${RFValue(18)}px;
     font-family: ${theme.fonts.text_400};
     margin-top: 8px;
-    color: ${type === 'positive'
-      ? theme.colors.success
-      : theme.colors.attention};
+    color: ${type === 'income' ? theme.colors.success : theme.colors.attention};
   `}
 `
 

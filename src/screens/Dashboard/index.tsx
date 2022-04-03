@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
+import { useFocusEffect } from '@react-navigation/native'
 import { FlatList } from 'react-native'
 import { useTheme } from 'styled-components'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -6,21 +7,107 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Card } from '@/components/Card'
 import { Moviment } from '@/components/Moviment'
 
-import { registerTransactionKey } from '@/keys'
+import { transactionKey } from '@/keys'
+import { formatToMoney } from '@/utils/formatToMoney'
+import { TransactionDTO } from '@/dtos/transactionDTO'
+
 import * as S from './styles'
+import { format } from 'date-fns'
+
+type HighLightProps = {
+  amount: string
+  lastTransaction: string
+}
+type HighLightData = {
+  entries: HighLightProps
+  expensives: HighLightProps
+  total: HighLightProps
+}
+
+type TransactionProps = {
+  id: string
+} & TransactionDTO
 
 export function Dashboard() {
   const theme = useTheme()
 
+  const [transactions, setTransactions] = useState<TransactionProps[]>([])
+  const [highlightData, setHighlightData] = useState({} as HighLightData)
+
+  useFocusEffect(
+    useCallback(() => {
+      loadTransactions()
+    }, []), // eslint-disable-line
+  )
+
   useEffect(() => {
-    async function loadTransactions() {
-      const transactions = await AsyncStorage.getItem(registerTransactionKey)
-
-      console.log(JSON.parse(transactions))
-    }
-
     loadTransactions()
-  }, [])
+  }, []) // eslint-disable-line
+
+  async function loadTransactions() {
+    try {
+      const response = await AsyncStorage.getItem(transactionKey)
+      const transactions = response !== null ? JSON.parse(response) : null
+
+      let entriesTotal = 0
+      let expensiveTotal = 0
+
+      for (const current of transactions) {
+        if (current.transactionType === 'income') {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          entriesTotal += current.amount
+        } else {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          expensiveTotal += current.amount
+        }
+      }
+
+      const lastTransactionsEntries = getIncomeTransactions(
+        transactions,
+        'income',
+      )
+      const lastTransactionsExpensive = getIncomeTransactions(
+        transactions,
+        'outcome',
+      )
+      const totalInterval = `01 a ${lastTransactionsExpensive}`
+
+      const total = entriesTotal - expensiveTotal
+
+      setTransactions(transactions)
+      setHighlightData({
+        entries: {
+          amount: formatToMoney(entriesTotal),
+          lastTransaction: `Última entrada dia ${lastTransactionsEntries}`,
+        },
+        expensives: {
+          amount: formatToMoney(expensiveTotal),
+          lastTransaction: `Última despesa dia ${lastTransactionsExpensive}`,
+        },
+        total: {
+          amount: formatToMoney(total),
+          lastTransaction: totalInterval,
+        },
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  function getIncomeTransactions(
+    transactions: TransactionProps[],
+    type: 'income' | 'outcome',
+  ) {
+    // eslint-disable-next-line prefer-spread
+    const lastTransaction = Math.max.apply(
+      Math,
+      transactions
+        .filter(item => item.transactionType === type)
+        .map(item => new Date(item.date).getTime()),
+    )
+
+    return format(new Date(lastTransaction), 'dd/MM/yy')
+  }
 
   return (
     <S.Container>
@@ -45,22 +132,22 @@ export function Dashboard() {
         <S.ListCards>
           <Card
             title="Entradas"
-            amount="R$ 1.000,00"
-            lastMoviment="Última entrada dia 13 de abril"
+            amount={highlightData?.entries?.amount}
+            lastMoviment={highlightData?.entries?.lastTransaction}
             type="up"
           />
 
           <Card
             title="Saídas"
-            amount="R$ 1.000,00"
-            lastMoviment="Última entrada dia 13 de abril"
+            amount={highlightData?.expensives?.amount}
+            lastMoviment={highlightData?.expensives?.lastTransaction}
             type="down"
           />
 
           <Card
             title="Total"
-            amount="R$ 1.000,00"
-            lastMoviment="Última entrada dia 13 de abril"
+            amount={highlightData?.total?.amount}
+            lastMoviment={highlightData?.total?.lastTransaction}
             type="dollar"
           />
         </S.ListCards>
@@ -70,18 +157,9 @@ export function Dashboard() {
         <S.Title>Transações</S.Title>
 
         <FlatList
-          data={[1, 2, 3, 4, 5, 6]}
-          keyExtractor={item => String(item)}
-          renderItem={() => (
-            <Moviment
-              data={{
-                title: 'Conta de Luz',
-                amount: 'R$ 1.000,00',
-                type: 'positive',
-                date: '13/04/2020',
-              }}
-            />
-          )}
+          data={transactions}
+          keyExtractor={item => item.id}
+          renderItem={({ item }) => <Moviment data={item} />}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: 20 }}
         />
