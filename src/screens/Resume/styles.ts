@@ -3,8 +3,6 @@ import { RFPercentage } from 'react-native-responsive-fontsize'
 import { Feather } from '@expo/vector-icons'
 
 export const Container = styled.View`
-  flex: 1;
-
   background-color: ${({ theme }) => theme.colors.background};
   align-items: center;
 `
@@ -32,4 +30,10 @@ export const Next = styled.TouchableOpacity``
 
 export const SelectIcon = styled(Feather)`
   font-size: ${RFPercentage(3)}px;
+`
+
+export const Content = styled.ScrollView.attrs({
+  showsVerticalScrollIndicator: false,
+})`
+  width: 90%;
 `
