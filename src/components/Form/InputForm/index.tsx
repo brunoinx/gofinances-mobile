@@ -1,29 +1,31 @@
 import React from 'react';
-import { TextInputProps } from 'react-native';
-import { Control, Controller } from 'react-hook-form';
+import { Controller, FieldValues, UseControllerProps } from 'react-hook-form';
 
-import { Input } from '../Input';
+import { Input, InputProps } from '../Input';
 
 import * as S from './styles';
 
-type InputFormProps = {
-  name: string;
-  control: Control;
-  errors: string;
-} & TextInputProps;
-
-export function InputForm({ name, control, errors, ...rest }: InputFormProps) {
+export function InputForm<FormType extends FieldValues>({
+  control,
+  name,
+  rules,
+  ...rest
+}: UseControllerProps<FormType> & InputProps) {
   return (
     <S.Container>
       <Controller
         name={name}
         control={control}
-        render={({ field: { onChange, value } }) => (
-          <Input onChangeText={onChange} value={value} {...rest} />
+        render={({ field: { value, onChange, onBlur, name }, fieldState }) => (
+          <Input
+            value={value}
+            onChangeText={onChange}
+            onBlur={onBlur}
+            errorMessage={fieldState.error?.message}
+            {...rest}
+          />
         )}
       />
-
-      {!!errors && <S.ErrorText>{errors}</S.ErrorText>}
     </S.Container>
   );
 }

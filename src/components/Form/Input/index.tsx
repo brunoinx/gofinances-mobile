@@ -3,22 +3,16 @@ import { TextInputProps } from 'react-native';
 
 import * as S from './styles';
 
-type InputProps = TextInputProps;
+export interface InputProps extends TextInputProps {
+  errorMessage?: string;
+}
 
-export function Input({ ...rest }: InputProps) {
-  const [isFocus, setIsFocus] = useState(false);
-
-  function handleInputFocus(event: 'focus' | 'blur') {
-    if (event === 'focus') return setIsFocus(true);
-    setIsFocus(false);
-  }
-
+export function Input({ errorMessage, ...rest }: InputProps) {
   return (
-    <S.InputContainer
-      isFocused={isFocus}
-      onFocus={() => handleInputFocus('focus')}
-      onBlur={() => handleInputFocus('blur')}
-      {...rest}
-    />
+    <>
+      <S.InputContainer error={!!errorMessage} {...rest} />
+
+      <S.ErrorText>{errorMessage}</S.ErrorText>
+    </>
   );
 }

@@ -39,7 +39,7 @@ export type FormData = {
 const schema = Yup.object({
   name: Yup.string().required('Nome é obrigatório'),
   amount: Yup.number()
-    .typeError('Informe um valor númerico')
+    .typeError('Informe um valor numérico')
     .positive('Somente números positivos')
     .required('Preço é obrigatório'),
 });
@@ -91,9 +91,12 @@ export function Register() {
     try {
       const currentData = await getTransactions();
 
-      const dataFormatted = [...currentData, newTransaction];
-
-      setTransactions(dataFormatted);
+      if (!currentData) {
+        await setTransactions([newTransaction]);
+      } else {
+        const dataFormatted = [...currentData, newTransaction];
+        setTransactions(dataFormatted);
+      }
 
       reset();
       setTransactionType('');
@@ -102,6 +105,7 @@ export function Register() {
       navigation.navigate('Dashboard');
     } catch (error) {
       Alert.alert('Erro ao salvar a transação');
+      console.log(error);
     }
   }
 
@@ -118,14 +122,14 @@ export function Register() {
               placeholder="Nome"
               autoCapitalize="words"
               autoCorrect={false}
-              errors={errors.name?.message}
+              errorMessage={errors.name?.message}
             />
             <InputForm
               name="amount"
               control={control}
               placeholder="Preço"
               keyboardType="numeric"
-              errors={errors.amount?.message}
+              errorMessage={errors.amount?.message}
             />
 
             <S.TransactionsType>

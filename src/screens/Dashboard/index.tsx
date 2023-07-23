@@ -36,7 +36,8 @@ export function Dashboard() {
   useFocusEffect(
     useCallback(() => {
       loadTransactions();
-    }, []), // eslint-disable-line
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []),
   );
 
   useEffect(() => {
@@ -52,10 +53,8 @@ export function Dashboard() {
 
       for (const current of transactions) {
         if (current.transactionType === 'income') {
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
           entriesTotal += current.amount;
         } else {
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
           expensiveTotal += current.amount;
         }
       }
@@ -73,6 +72,7 @@ export function Dashboard() {
       const total = entriesTotal - expensiveTotal;
 
       setTransactions(transactions);
+
       setHighlightData({
         entries: {
           amount: formatToMoney(entriesTotal),
@@ -115,7 +115,7 @@ export function Dashboard() {
             <S.Photo source={{ uri: 'https://www.github.com/brunoinx.png' }} />
 
             <S.User>
-              <S.UserGretting>Olá, </S.UserGretting>
+              <S.UserGreeting>Olá, </S.UserGreeting>
               <S.UserName>Bruno Henrique</S.UserName>
             </S.User>
           </S.UserInfo>

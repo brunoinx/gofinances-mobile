@@ -48,7 +48,7 @@ export const User = styled.View`
   margin-left: ${RFP(2)}px;
 `;
 
-export const UserGretting = styled.Text`
+export const UserGreeting = styled.Text`
   font-size: ${RFP(2.3)}px;
   font-family: ${({ theme }) => theme.fonts.text_400};
   color: ${({ theme }) => theme.colors.background};
