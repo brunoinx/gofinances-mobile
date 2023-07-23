@@ -1,21 +1,21 @@
-import React from 'react'
-import { FlatList } from 'react-native'
-import { Button } from '../../components/Form/Button'
+import React from 'react';
+import { FlatList } from 'react-native';
+import { Button } from '../../components/Form/Button';
 
-import { categories } from '@/mocks/categories'
-import { CategoryKeyProps } from '@/dtos/transactionDTO'
+import { categories } from '@/mocks/categories';
+import { CategoryKeyProps } from '@/dtos/transactionDTO';
 
-import * as S from './styles'
+import * as S from './styles';
 
 type CategoryProps = {
-  key: CategoryKeyProps
-  name: string
-}
+  key: CategoryKeyProps;
+  name: string;
+};
 
 interface Props {
-  category: CategoryProps
-  setCategory: (category: CategoryProps) => void
-  closeSelectCategory: () => void
+  category: CategoryProps;
+  setCategory: (category: CategoryProps) => void;
+  closeSelectCategory: () => void;
 }
 
 export function CategorySelect({
@@ -24,7 +24,7 @@ export function CategorySelect({
   closeSelectCategory,
 }: Props) {
   function handleCategorySelect(category: CategoryProps) {
-    setCategory(category)
+    setCategory(category);
   }
 
   return (
@@ -51,5 +51,5 @@ export function CategorySelect({
         <Button title="Selecionar" onPress={closeSelectCategory} />
       </S.Footer>
     </S.Container>
-  )
+  );
 }

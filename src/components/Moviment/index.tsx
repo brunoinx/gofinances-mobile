@@ -1,21 +1,21 @@
-import React from 'react'
-import { format } from 'date-fns'
+import React from 'react';
+import { format } from 'date-fns';
 
-import { categories } from '@/mocks/categories'
-import { TransactionDTO } from '@/dtos/transactionDTO'
-import { formatToMoney } from '@/utils/formatToMoney'
+import { categories } from '@/mocks/categories';
+import { TransactionDTO } from '@/dtos/transactionDTO';
+import { formatToMoney } from '@/utils/formatToMoney';
 
-import * as S from './styles'
+import * as S from './styles';
 
 type MovimentProps = {
-  data: TransactionDTO
-}
+  data: TransactionDTO;
+};
 
 export function Moviment({ data }: MovimentProps) {
-  const dateFormatted = format(new Date(data.date), 'dd/MM/yyyy')
-  const amountFormatted = formatToMoney(data.amount)
+  const dateFormatted = format(new Date(data.date), 'dd/MM/yyyy');
+  const amountFormatted = formatToMoney(data.amount);
 
-  const [category] = categories.filter(item => item.key === data.category)
+  const [category] = categories.filter(item => item.key === data.category);
 
   return (
     <S.Container>
@@ -34,5 +34,5 @@ export function Moviment({ data }: MovimentProps) {
         <S.FooterText>{dateFormatted}</S.FooterText>
       </S.Footer>
     </S.Container>
-  )
+  );
 }

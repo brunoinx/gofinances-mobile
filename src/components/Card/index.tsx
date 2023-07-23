@@ -1,19 +1,19 @@
-import React from 'react'
+import React from 'react';
 
-import * as S from './styles'
+import * as S from './styles';
 
 const icon = {
   up: 'arrow-up-circle',
   down: 'arrow-up-circle',
   dollar: 'dollar-sign',
-}
+};
 
 type CardProps = {
-  title: string
-  amount: string
-  lastMoviment: string
-  type: 'up' | 'down' | 'dollar'
-}
+  title: string;
+  amount: string;
+  lastMoviment: string;
+  type: 'up' | 'down' | 'dollar';
+};
 
 export function Card({ title, amount, lastMoviment, type }: CardProps) {
   return (
@@ -29,5 +29,5 @@ export function Card({ title, amount, lastMoviment, type }: CardProps) {
         <S.LastMoviment type={type}>{lastMoviment}</S.LastMoviment>
       </S.Footer>
     </S.Container>
-  )
+  );
 }

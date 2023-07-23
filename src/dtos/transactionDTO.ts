@@ -4,13 +4,13 @@ export type CategoryKeyProps =
   | 'salary'
   | 'car'
   | 'leisure'
-  | 'studies'
+  | 'studies';
 
 export type TransactionDTO = {
-  id: string
-  amount: number
-  category: CategoryKeyProps
-  date: Date
-  name: string
-  transactionType: 'income' | 'outcome'
-}
+  id: string;
+  amount: number;
+  category: CategoryKeyProps;
+  date: Date;
+  name: string;
+  transactionType: 'income' | 'outcome';
+};

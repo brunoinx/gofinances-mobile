@@ -1,40 +1,40 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import {
   View,
   Modal,
   Keyboard,
   Alert,
   TouchableWithoutFeedback,
-} from 'react-native'
-import { useNavigation } from '@react-navigation/native'
-import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import uuid from 'react-native-uuid'
-import * as Yup from 'yup'
+} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import uuid from 'react-native-uuid';
+import * as Yup from 'yup';
 
-import { Button } from '@/components/Form/Button'
-import { InputForm } from '@/components/Form/InputForm'
-import { CategorySelectButton } from '@/components/Form/CategorySelectButton'
-import { TransactionTypeButton } from '@/components/Form/TransactionTypeButton'
+import { Button } from '@/components/Form/Button';
+import { InputForm } from '@/components/Form/InputForm';
+import { CategorySelectButton } from '@/components/Form/CategorySelectButton';
+import { TransactionTypeButton } from '@/components/Form/TransactionTypeButton';
 
-import { CategorySelect } from '@/screens/CategorySelect'
+import { CategorySelect } from '@/screens/CategorySelect';
 
-import { RootParamsListProps } from '@/dtos/RootParamsListDTO'
+import { RootParamsListProps } from '@/dtos/RootParamsListDTO';
 
-import * as S from './styles'
-import { Header } from '@/components/Header'
-import { getTransactions, setTransactions } from '@/storage/transactions'
-import { CategoryKeyProps, TransactionDTO } from '@/dtos/transactionDTO'
+import * as S from './styles';
+import { Header } from '@/components/Header';
+import { getTransactions, setTransactions } from '@/storage/transactions';
+import { CategoryKeyProps, TransactionDTO } from '@/dtos/transactionDTO';
 
 type CategoryProps = {
-  key: CategoryKeyProps
-  name: string
-}
+  key: CategoryKeyProps;
+  name: string;
+};
 
 export type FormData = {
-  name: string
-  amount: string
-}
+  name: string;
+  amount: string;
+};
 
 const schema = Yup.object({
   name: Yup.string().required('Nome é obrigatório'),
@@ -42,7 +42,7 @@ const schema = Yup.object({
     .typeError('Informe um valor númerico')
     .positive('Somente números positivos')
     .required('Preço é obrigatório'),
-})
+});
 
 export function Register() {
   const {
@@ -52,32 +52,32 @@ export function Register() {
     reset,
   } = useForm({
     resolver: yupResolver(schema),
-  })
+  });
 
-  const navigation = useNavigation<RootParamsListProps>()
+  const navigation = useNavigation<RootParamsListProps>();
 
   const [transactionType, setTransactionType] = useState<
     'income' | 'outcome' | ''
-  >('')
-  const [categoryModalOpen, setCategoryModalOpen] = useState(false)
-  const [category, setCategory] = useState({} as CategoryProps)
+  >('');
+  const [categoryModalOpen, setCategoryModalOpen] = useState(false);
+  const [category, setCategory] = useState({} as CategoryProps);
 
   function handleTransactionsTypeSelect(type: 'income' | 'outcome') {
-    setTransactionType(type)
+    setTransactionType(type);
   }
 
   function handleOpenSelectCategoryModal() {
-    setCategoryModalOpen(true)
+    setCategoryModalOpen(true);
   }
 
   function handleCloseSelectCategoryModal() {
-    setCategoryModalOpen(false)
+    setCategoryModalOpen(false);
   }
 
   async function handleRegister({ name, amount }: FormData) {
-    if (!transactionType) return Alert.alert('Selecione o tipo da transação')
+    if (!transactionType) return Alert.alert('Selecione o tipo da transação');
 
-    if (!category.key) return Alert.alert('Selecione a categoria')
+    if (!category.key) return Alert.alert('Selecione a categoria');
 
     const newTransaction: TransactionDTO = {
       id: String(uuid.v4()),
@@ -86,22 +86,22 @@ export function Register() {
       transactionType,
       category: category.key,
       date: new Date(),
-    }
+    };
 
     try {
-      const currentData = await getTransactions()
+      const currentData = await getTransactions();
 
-      const dataFormatted = [...currentData, newTransaction]
+      const dataFormatted = [...currentData, newTransaction];
 
-      setTransactions(dataFormatted)
+      setTransactions(dataFormatted);
 
-      reset()
-      setTransactionType('')
-      setCategory({} as CategoryProps)
+      reset();
+      setTransactionType('');
+      setCategory({} as CategoryProps);
 
-      navigation.navigate('Dashboard')
+      navigation.navigate('Dashboard');
     } catch (error) {
-      Alert.alert('Erro ao salvar a transação')
+      Alert.alert('Erro ao salvar a transação');
     }
   }
 
@@ -165,5 +165,5 @@ export function Register() {
         </Modal>
       </S.Container>
     </TouchableWithoutFeedback>
-  )
+  );
 }

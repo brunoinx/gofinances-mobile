@@ -24,4 +24,4 @@ export default {
     text_500: 'Poppins_500Medium',
     text_700: 'Poppins_700Bold',
   },
-}
+};

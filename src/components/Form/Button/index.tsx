@@ -1,11 +1,11 @@
-import React from 'react'
+import React from 'react';
 
-import * as S from './styles'
+import * as S from './styles';
 
 type Props = {
-  title: string
-  onPress: () => void
-}
+  title: string;
+  onPress: () => void;
+};
 
 export function Button({ title, onPress }: Props) {
   return (
@@ -14,5 +14,5 @@ export function Button({ title, onPress }: Props) {
         <S.Title>{title}</S.Title>
       </S.Container>
     </S.RootView>
-  )
+  );
 }

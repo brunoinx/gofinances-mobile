@@ -1,11 +1,11 @@
-import styled, { css } from 'styled-components/native'
+import styled, { css } from 'styled-components/native';
 import {
   GestureHandlerRootView,
   RectButton,
-} from 'react-native-gesture-handler'
-import { RFValue } from 'react-native-responsive-fontsize'
+} from 'react-native-gesture-handler';
+import { RFValue } from 'react-native-responsive-fontsize';
 
-export const RootView = styled(GestureHandlerRootView)``
+export const RootView = styled(GestureHandlerRootView)``;
 
 export const Container = styled.TouchableOpacity`
   ${({ theme }) => css`
@@ -15,7 +15,7 @@ export const Container = styled.TouchableOpacity`
     border-radius: 5px;
     align-items: center;
   `}
-`
+`;
 
 export const Title = styled.Text`
   ${({ theme }) => css`
@@ -23,4 +23,4 @@ export const Title = styled.Text`
     font-size: ${RFValue(15)}px;
     color: ${theme.colors.shape};
   `}
-`
+`;

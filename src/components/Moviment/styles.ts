@@ -1,10 +1,10 @@
-import styled, { css } from 'styled-components/native'
-import { RFPercentage, RFValue } from 'react-native-responsive-fontsize'
-import { Feather } from '@expo/vector-icons'
+import styled, { css } from 'styled-components/native';
+import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
+import { Feather } from '@expo/vector-icons';
 
 type TransactionProps = {
-  type: 'income' | 'outcome'
-}
+  type: 'income' | 'outcome';
+};
 
 export const Container = styled.View`
   ${({ theme }) => css`
@@ -15,7 +15,7 @@ export const Container = styled.View`
 
     background-color: ${theme.colors.shape};
   `}
-`
+`;
 
 export const Title = styled.Text`
   ${({ theme }) => css`
@@ -24,7 +24,7 @@ export const Title = styled.Text`
     color: ${theme.colors.title};
     text-transform: capitalize;
   `}
-`
+`;
 
 export const Amount = styled.Text<TransactionProps>`
   ${({ theme, type }) => css`
@@ -33,27 +33,27 @@ export const Amount = styled.Text<TransactionProps>`
     margin-top: 8px;
     color: ${type === 'income' ? theme.colors.success : theme.colors.attention};
   `}
-`
+`;
 
 export const Footer = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   margin-top: ${RFPercentage(2.6)}px;
-`
+`;
 
 export const Icon = styled(Feather).attrs({
   size: RFValue(19),
 })`
   color: ${({ theme }) => theme.colors.text};
   margin-right: 17px;
-`
+`;
 
 export const CategoryeWrapper = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-end;
-`
+`;
 
 export const FooterText = styled.Text`
   ${({ theme }) => css`
@@ -61,4 +61,4 @@ export const FooterText = styled.Text`
     font-family: ${theme.fonts.text_400};
     color: ${theme.colors.text};
   `}
-`
+`;

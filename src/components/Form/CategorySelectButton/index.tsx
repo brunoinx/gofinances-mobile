@@ -1,11 +1,11 @@
-import React from 'react'
-import { TouchableOpacityProps } from 'react-native'
+import React from 'react';
+import { TouchableOpacityProps } from 'react-native';
 
-import * as S from './styles'
+import * as S from './styles';
 
 type CategoryProps = {
-  label: string
-} & TouchableOpacityProps
+  label: string;
+} & TouchableOpacityProps;
 
 export function CategorySelectButton({ label, ...rest }: CategoryProps) {
   return (
@@ -14,5 +14,5 @@ export function CategorySelectButton({ label, ...rest }: CategoryProps) {
 
       <S.Icon name={'chevron-down'} />
     </S.Container>
-  )
+  );
 }

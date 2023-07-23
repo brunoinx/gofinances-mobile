@@ -1,12 +1,12 @@
-import React from 'react'
+import React from 'react';
 
-import * as S from './styles'
+import * as S from './styles';
 
 type Props = {
-  title: string
-  amount: string
-  color: string
-}
+  title: string;
+  amount: string;
+  color: string;
+};
 
 export function HistoryCard({ title, amount, color }: Props) {
   return (
@@ -14,5 +14,5 @@ export function HistoryCard({ title, amount, color }: Props) {
       <S.Title>{title}</S.Title>
       <S.Amount>{amount}</S.Amount>
     </S.Container>
-  )
+  );
 }
