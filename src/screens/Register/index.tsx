@@ -1,4 +1,4 @@
-import React, { useState, useId } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Modal,
@@ -9,6 +9,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import uuid from 'react-native-uuid';
 import * as Yup from 'yup';
 
 import { Header } from '@/components/Header';
@@ -79,7 +80,7 @@ export function Register() {
     if (!category.key) return Alert.alert('Selecione a categoria');
 
     const newTransaction: TransactionDTO = {
-      id: useId(),
+      id: uuid.v4().toString(),
       name,
       amount: Number(amount),
       transactionType,
