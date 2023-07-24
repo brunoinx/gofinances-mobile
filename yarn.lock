@@ -6822,11 +6822,6 @@ react-native-styled-components@^2.1.0:
   resolved "https://registry.yarnpkg.com/react-native-styled-components/-/react-native-styled-components-2.1.0.tgz#355666b94d2f013197eb239823894964abd37634"
   integrity sha512-+BHBlDYeAsnrRajwmCkCpLlF18gK9RtA5cJxD32ilBTGBqpQAR5SPyibURPV+t5vSOEzFZsDGbVmNTSeYWx3Eg==
 
-react-native-uuid@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/react-native-uuid/-/react-native-uuid-2.0.1.tgz#ed4e2dfb1683eddb66967eb5dca140dfe1abddb9"
-  integrity sha512-cptnoIbL53GTCrWlb/+jrDC6tvb7ypIyzbXNJcpR3Vab0mkeaaVd5qnB3f0whXYzS+SMoSQLcUUB0gEWqkPC0g==
-
 react-native-web@~0.18.7:
   version "0.18.12"
   resolved "https://registry.yarnpkg.com/react-native-web/-/react-native-web-0.18.12.tgz#d4bb3a783ece2514ba0508d7805b09c0a98f5a8e"
