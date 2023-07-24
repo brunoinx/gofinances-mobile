@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import { Header } from '@/components/Header';
 import { HistoryCard } from '@/components/HistoryCard';
@@ -8,6 +8,7 @@ import { getTransactions } from '@/storage/transactions';
 import { formatToMoney } from '@/utils/formatToMoney';
 
 import * as S from './styles';
+import { useFocusEffect } from '@react-navigation/native';
 
 type CategoryData = {
   key: string;
@@ -23,50 +24,49 @@ export function Resume() {
     [],
   );
 
-  useEffect(() => {
-    async function loadData() {
-      const transactions = await getTransactions();
+  useFocusEffect(
+    useCallback(() => {
+      loadData();
+    }, []),
+  );
 
-      const expensives = transactions.filter(
-        expensive => expensive.transactionType === 'outcome',
-      );
+  async function loadData() {
+    const transactions = await getTransactions();
 
-      const total = expensives.reduce(
-        (acc, current) => acc + current.amount,
-        0,
-      );
+    const expensives = transactions.filter(
+      expensive => expensive.transactionType === 'outcome',
+    );
 
-      const totalByCategory: CategoryData[] = [];
+    const total = expensives.reduce((acc, current) => acc + current.amount, 0);
 
-      categories.forEach(category => {
-        let categorySum = 0;
+    const totalByCategory: CategoryData[] = [];
 
-        expensives.forEach(expensive => {
-          if (expensive.category === category.key) {
-            categorySum += Number(expensive.amount);
-          }
-        });
+    categories.forEach(category => {
+      let categorySum = 0;
 
-        if (categorySum > 0) {
-          const percent = ((categorySum / total) * 100).toFixed(0);
-          const amountFormatted = formatToMoney(categorySum);
-
-          totalByCategory.push({
-            key: category.key,
-            name: category.name,
-            color: category.color,
-            amountFormatted,
-            percent: Number(percent),
-            percentFormatted: `${percent}%`,
-          });
+      expensives.forEach(expensive => {
+        if (expensive.category === category.key) {
+          categorySum += Number(expensive.amount);
         }
       });
 
-      setTotalByCategories(totalByCategory);
-    }
+      if (categorySum > 0) {
+        const percent = ((categorySum / total) * 100).toFixed(0);
+        const amountFormatted = formatToMoney(categorySum);
 
-    loadData();
-  }, []);
+        totalByCategory.push({
+          key: category.key,
+          name: category.name,
+          color: category.color,
+          amountFormatted,
+          percent: Number(percent),
+          percentFormatted: `${percent}%`,
+        });
+      }
+    });
+
+    setTotalByCategories(totalByCategory);
+  }
 
   return (
     <S.Container>

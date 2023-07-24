@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useId } from 'react';
 import {
   View,
   Modal,
@@ -9,22 +9,21 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import uuid from 'react-native-uuid';
 import * as Yup from 'yup';
 
+import { Header } from '@/components/Header';
 import { Button } from '@/components/Form/Button';
 import { InputForm } from '@/components/Form/InputForm';
 import { CategorySelectButton } from '@/components/Form/CategorySelectButton';
 import { TransactionTypeButton } from '@/components/Form/TransactionTypeButton';
 
 import { CategorySelect } from '@/screens/CategorySelect';
+import { getTransactions, setTransactions } from '@/storage/transactions';
 
 import { RootParamsListProps } from '@/dtos/RootParamsListDTO';
+import { CategoryKeyProps, TransactionDTO } from '@/dtos/transactionDTO';
 
 import * as S from './styles';
-import { Header } from '@/components/Header';
-import { getTransactions, setTransactions } from '@/storage/transactions';
-import { CategoryKeyProps, TransactionDTO } from '@/dtos/transactionDTO';
 
 type CategoryProps = {
   key: CategoryKeyProps;
@@ -80,7 +79,7 @@ export function Register() {
     if (!category.key) return Alert.alert('Selecione a categoria');
 
     const newTransaction: TransactionDTO = {
-      id: String(uuid.v4()),
+      id: useId(),
       name,
       amount: Number(amount),
       transactionType,

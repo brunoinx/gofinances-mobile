@@ -36,4 +36,5 @@ export const Content = styled.ScrollView.attrs({
   showsVerticalScrollIndicator: false,
 })`
   width: 90%;
+  margin-top: 20px;
 `;
