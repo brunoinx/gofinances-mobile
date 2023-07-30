@@ -16,7 +16,7 @@ export function InputForm<FormType extends FieldValues>({
       <Controller
         name={name}
         control={control}
-        render={({ field: { value, onChange, onBlur, name }, fieldState }) => (
+        render={({ field: { value, onChange, onBlur }, fieldState }) => (
           <Input
             value={value}
             onChangeText={onChange}
