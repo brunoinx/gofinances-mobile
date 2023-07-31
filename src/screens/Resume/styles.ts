@@ -7,7 +7,14 @@ export const Container = styled.View`
   align-items: center;
 `;
 
-export const ChartContent = styled.View``;
+export const Content = styled.ScrollView`
+  width: 90%;
+`;
+
+export const ChartContent = styled.View`
+  width: 100%;
+  align-items: center;
+`;
 
 export const MonthSelect = styled.View`
   width: 100%;
@@ -16,25 +23,16 @@ export const MonthSelect = styled.View`
   justify-content: space-between;
   align-items: center;
 
-  padding: ${RFPercentage(3)}px;
+  padding: ${RFPercentage(2.6)}px;
 `;
 
-export const Previous = styled.TouchableOpacity``;
+export const MonthSelectButton = styled.TouchableOpacity``;
 
 export const Month = styled.Text`
-  font-family: ${({ theme }) => theme.fonts.text_400};
+  font-family: ${({ theme }) => theme.fonts.text_500};
   font-size: ${RFPercentage(2.7)}px;
 `;
 
-export const Next = styled.TouchableOpacity``;
-
-export const SelectIcon = styled(Feather)`
-  font-size: ${RFPercentage(3)}px;
-`;
-
-export const Content = styled.ScrollView.attrs({
-  showsVerticalScrollIndicator: false,
-})`
-  width: 90%;
-  margin-top: 20px;
+export const MonthSelectIcon = styled(Feather)`
+  font-size: ${RFPercentage(3.3)}px;
 `;
