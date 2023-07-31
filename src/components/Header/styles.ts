@@ -7,7 +7,7 @@ export const Header = styled.View`
     background-color: ${theme.colors.primary};
     width: 100%;
     height: ${RFPercentage(15)}px;
-    padding-top: ${getStatusBarHeight() + RFPercentage(2)}px;
+    padding-top: ${getStatusBarHeight() + RFPercentage(1.6)}px;
     align-items: center;
     justify-content: flex-end;
     padding-bottom: ${RFPercentage(3)}px;
