@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import { FlatList } from 'react-native';
 import { useTheme } from 'styled-components';
@@ -39,10 +39,6 @@ export function Dashboard() {
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []),
   );
-
-  useEffect(() => {
-    loadTransactions();
-  }, []); // eslint-disable-line
 
   async function loadTransactions() {
     try {
