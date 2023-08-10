@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
-import { FlatList } from 'react-native';
+import { Alert, FlatList } from 'react-native';
 import { useTheme } from 'styled-components';
 
 import { Card } from '@/components/Card';
@@ -44,6 +44,17 @@ export function Dashboard() {
     try {
       const transactions = await getTransactions();
 
+      const hasTransactionTypeIncome = transactions.some(
+        item => item.transactionType === 'income',
+      );
+      const hasTransactionTypeOutcome = transactions.some(
+        item => item.transactionType === 'outcome',
+      );
+
+      if (!hasTransactionTypeIncome && !hasTransactionTypeOutcome) {
+        return Alert.alert('Nenhuma transação encontrada');
+      }
+
       let entriesTotal = 0;
       let expensiveTotal = 0;
 
@@ -55,14 +66,20 @@ export function Dashboard() {
         }
       }
 
-      const lastTransactionsEntries = getIncomeTransactions(
-        transactions,
-        'income',
-      );
-      const lastTransactionsExpensive = getIncomeTransactions(
-        transactions,
-        'outcome',
-      );
+      let lastTransactionsEntries: string;
+      let lastTransactionsExpensive: string;
+
+      if (hasTransactionTypeIncome) {
+        lastTransactionsEntries = getIncomeTransactions(transactions, 'income');
+      }
+
+      if (hasTransactionTypeOutcome) {
+        lastTransactionsExpensive = getIncomeTransactions(
+          transactions,
+          'outcome',
+        );
+      }
+
       const totalInterval = `01 a ${lastTransactionsExpensive}`;
 
       const total = entriesTotal - expensiveTotal;
@@ -100,6 +117,7 @@ export function Dashboard() {
         .map(item => new Date(item.date).getTime()),
     );
 
+    console.log(format(new Date(lastTransaction), 'dd/MM/yy'));
     return format(new Date(lastTransaction), 'dd/MM/yy');
   }
 
