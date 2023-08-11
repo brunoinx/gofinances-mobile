@@ -34,6 +34,7 @@
     "react-native-screens": "~3.20.0",
     "react-native-styled-components": "^2.1.0",
     "react-native-svg": "13.4.0",
+    "react-native-svg-transformer": "^1.1.0",
     "react-native-uuid": "^2.0.1",
     "react-native-web": "~0.18.11",
     "styled-components": "^5.3.3",
