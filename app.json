@@ -1,11 +1,17 @@
 {
+  "name": "gofinances",
   "expo": {
     "name": "gofinances",
     "slug": "gofinances",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
-  },
-  "name": "gofinances"
+    ],
+    "scheme": "mycoolredirect",
+    "extra": {
+      "eas": {
+        "projectId": "285b891f-47d8-4ea8-8f68-7dde4a455971"
+      }
+    }
+  }
 }
