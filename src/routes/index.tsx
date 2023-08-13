@@ -10,7 +10,7 @@ export function Routes() {
 
   return (
     <NavigationContainer>
-      {!isUserAuthenticated ? <AuthRoutes /> : <AppRoutes />}
+      {isUserAuthenticated ? <AppRoutes /> : <AuthRoutes />}
     </NavigationContainer>
   );
 }

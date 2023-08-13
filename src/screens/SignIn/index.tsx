@@ -28,7 +28,7 @@ export function SignIn() {
   });
 
   useEffect(() => {
-    if (response?.type === 'success' && response.authentication) {
+    if (response?.type === 'success' && response.authentication.accessToken) {
       handleSignInWithGoogle();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -38,7 +38,7 @@ export function SignIn() {
     try {
       const userStorage = await getUserStorage();
 
-      if (!userStorage) {
+      if (!userStorage.id) {
         if (response?.type === 'success') {
           const user = await requestGoogleUserData(
             response.authentication.accessToken,
