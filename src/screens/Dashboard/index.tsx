@@ -46,16 +46,16 @@ export function Dashboard() {
     try {
       const transactions = await getTransactions();
 
+      if (!transactions) {
+        return;
+      }
+
       const hasTransactionTypeIncome = transactions.some(
         item => item.transactionType === 'income',
       );
       const hasTransactionTypeOutcome = transactions.some(
         item => item.transactionType === 'outcome',
       );
-
-      if (!hasTransactionTypeIncome && !hasTransactionTypeOutcome) {
-        return Alert.alert('Nenhuma transação encontrada');
-      }
 
       let entriesTotal = 0;
       let expensiveTotal = 0;

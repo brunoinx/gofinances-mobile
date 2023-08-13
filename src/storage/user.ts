@@ -12,7 +12,7 @@ export async function getUserStorage(): Promise<UserDTO | null> {
   }
 }
 
-export async function setUserStorage(user: UserDTO): Promise<void> {
+export async function setUserStorage(user: UserDTO | null): Promise<void> {
   try {
     await AsyncStorage.setItem(key, JSON.stringify(user));
   } catch (error) {
