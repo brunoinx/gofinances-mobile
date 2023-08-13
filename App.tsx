@@ -11,9 +11,11 @@ import {
   Poppins_500Medium,
   Poppins_700Bold,
 } from '@expo-google-fonts/poppins';
-import theme from './src/global/styles/theme';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import { Routes } from '@/routes';
+import { AuthProvider } from '@/contexts/auth';
+import theme from './src/global/styles/theme';
 
 export function App() {
   const [fontsLoaded] = useFonts({
@@ -28,8 +30,12 @@ export function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <StatusBar style="light" backgroundColor="transparent" translucent />
-      <Routes />
+      <AuthProvider>
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <StatusBar style="light" backgroundColor="transparent" translucent />
+          <Routes />
+        </GestureHandlerRootView>
+      </AuthProvider>
     </ThemeProvider>
   );
 }
