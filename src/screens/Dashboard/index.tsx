@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import { Alert, FlatList } from 'react-native';
 import { useTheme } from 'styled-components';
+import { format } from 'date-fns';
 
 import { Card } from '@/components/Card';
 import { Moviment } from '@/components/Moviment';
@@ -9,9 +10,9 @@ import { Moviment } from '@/components/Moviment';
 import { formatToMoney } from '@/utils/formatToMoney';
 import { TransactionDTO } from '@/dtos/transactionDTO';
 import { getTransactions } from '@/storage/transactions';
+import { useAuth } from '@/hooks/useAuth';
 
 import * as S from './styles';
-import { format } from 'date-fns';
 
 type HighLightProps = {
   amount: string;
@@ -29,6 +30,7 @@ type TransactionProps = {
 
 export function Dashboard() {
   const theme = useTheme();
+  const { userData, signOut } = useAuth();
 
   const [transactions, setTransactions] = useState<TransactionProps[]>([]);
   const [highlightData, setHighlightData] = useState({} as HighLightData);
@@ -44,16 +46,16 @@ export function Dashboard() {
     try {
       const transactions = await getTransactions();
 
+      if (!transactions) {
+        return;
+      }
+
       const hasTransactionTypeIncome = transactions.some(
         item => item.transactionType === 'income',
       );
       const hasTransactionTypeOutcome = transactions.some(
         item => item.transactionType === 'outcome',
       );
-
-      if (!hasTransactionTypeIncome && !hasTransactionTypeOutcome) {
-        return Alert.alert('Nenhuma transação encontrada');
-      }
 
       let entriesTotal = 0;
       let expensiveTotal = 0;
@@ -117,7 +119,6 @@ export function Dashboard() {
         .map(item => new Date(item.date).getTime()),
     );
 
-    console.log(format(new Date(lastTransaction), 'dd/MM/yy'));
     return format(new Date(lastTransaction), 'dd/MM/yy');
   }
 
@@ -126,16 +127,16 @@ export function Dashboard() {
       <S.Header>
         <S.HeaderTop>
           <S.UserInfo>
-            <S.Photo source={{ uri: 'https://www.github.com/brunoinx.png' }} />
+            <S.Photo source={{ uri: userData.picture }} />
 
             <S.User>
               <S.UserGreeting>Olá, </S.UserGreeting>
-              <S.UserName>Bruno Henrique</S.UserName>
+              <S.UserName>{userData.name}</S.UserName>
             </S.User>
           </S.UserInfo>
 
           <S.ContainerLogout>
-            <S.Logout onPress={() => console.log('oi')}>
+            <S.Logout onPress={signOut}>
               <S.Icon name="power" size={24} color={theme.colors.attention} />
             </S.Logout>
           </S.ContainerLogout>
