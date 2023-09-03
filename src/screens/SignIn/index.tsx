@@ -38,7 +38,7 @@ export function SignIn() {
     try {
       const userStorage = await getUserStorage();
 
-      if (!userStorage.id) {
+      if (!userStorage?.id) {
         if (response?.type === 'success') {
           const user = await requestGoogleUserData(
             response.authentication.accessToken,
