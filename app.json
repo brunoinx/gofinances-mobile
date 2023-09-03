@@ -7,7 +7,7 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "scheme": "mycoolredirect",
+    "scheme": "com.brunoinx.gofinances",
     "extra": {
       "eas": {
         "projectId": "285b891f-47d8-4ea8-8f68-7dde4a455971"

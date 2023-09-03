@@ -26,7 +26,7 @@ export function AuthProvider({ children }: ProviderProps) {
     async function loadUserData() {
       const user = await getUserStorage();
 
-      if (!user.id) {
+      if (!user?.id) {
         setUserData({} as UserDTO);
         setIsUserAuthenticated(false);
       } else {
