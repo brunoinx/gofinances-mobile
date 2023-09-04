@@ -25,7 +25,7 @@
       <dict>
         <key>CFBundleURLSchemes</key>
         <array>
-          <string>mycoolredirect</string>
+          <string>com.brunoinx.gofinances</string>
           <string>com.brunoinx.gofinances</string>
         </array>
       </dict>
