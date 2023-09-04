@@ -45,6 +45,10 @@ export function Resume() {
   async function loadData() {
     const transactions = await getTransactions();
 
+    if (!transactions) {
+      return;
+    }
+
     const expensives = transactions.filter(
       expensive =>
         expensive.transactionType === 'outcome' &&

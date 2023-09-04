@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
-import { Alert, FlatList } from 'react-native';
+import { FlatList } from 'react-native';
 import { useTheme } from 'styled-components';
 import { format } from 'date-fns';
 
@@ -13,6 +13,8 @@ import { getTransactions } from '@/storage/transactions';
 import { useAuth } from '@/hooks/useAuth';
 
 import * as S from './styles';
+import { maskCurrency } from '@/utils/maskCurrency';
+import { EmptyMessage } from '@/components/EmptyMessage';
 
 type HighLightProps = {
   amount: string;
@@ -47,7 +49,20 @@ export function Dashboard() {
       const transactions = await getTransactions();
 
       if (!transactions) {
-        return;
+        return setHighlightData({
+          total: {
+            amount: maskCurrency('0'),
+            lastTransaction: 'nenhuma movimentação',
+          },
+          expensives: {
+            amount: maskCurrency('0'),
+            lastTransaction: 'nenhuma movimentação',
+          },
+          entries: {
+            amount: maskCurrency('0'),
+            lastTransaction: 'nenhuma movimentação',
+          },
+        });
       }
 
       const hasTransactionTypeIncome = transactions.some(
@@ -173,8 +188,9 @@ export function Dashboard() {
           data={transactions}
           keyExtractor={item => item.id}
           renderItem={({ item }) => <Moviment data={item} />}
+          ListEmptyComponent={<EmptyMessage />}
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: 20 }}
+          contentContainerStyle={{ height: '100%', paddingBottom: 20 }}
         />
       </S.Content>
     </S.Container>
