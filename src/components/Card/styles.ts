@@ -51,8 +51,9 @@ export const Amount = styled.Text<TypeProps>`
 `;
 
 export const LastMoviment = styled.Text<TypeProps>`
-  font-size: ${RFP(1.5)}px;
-  margin-bottom: ${RFP(4)}px;
+  font-size: ${RFP(1.8)}px;
+  margin-top: ${RFP(2)}px;
+  margin-bottom: ${RFP(2)}px;
 
   color: ${({ theme, type }) =>
     type === 'dollar' ? theme.colors.shape : theme.colors.text};
