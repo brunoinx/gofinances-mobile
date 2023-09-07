@@ -1,20 +1,23 @@
 import React, { useCallback, useState } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
-import { FlatList } from 'react-native';
+import { FlatList, Modal } from 'react-native';
 import { useTheme } from 'styled-components';
 import { format } from 'date-fns';
 
 import { Card } from '@/components/Card';
 import { Moviment } from '@/components/Moviment';
+import { EmptyMessage } from '@/components/EmptyMessage';
+import * as AlertDialog from '@/components/AlertDialog';
 
+import { useAuth } from '@/hooks/useAuth';
+import { maskCurrency } from '@/utils/maskCurrency';
 import { formatToMoney } from '@/utils/formatToMoney';
 import { TransactionDTO } from '@/dtos/transactionDTO';
 import { getTransactions } from '@/storage/transactions';
-import { useAuth } from '@/hooks/useAuth';
+
+import ProfileDefaultImg from '@/assets/images/default-profile.jpg';
 
 import * as S from './styles';
-import { maskCurrency } from '@/utils/maskCurrency';
-import { EmptyMessage } from '@/components/EmptyMessage';
 
 type HighLightProps = {
   amount: string;
@@ -36,6 +39,7 @@ export function Dashboard() {
 
   const [transactions, setTransactions] = useState<TransactionProps[]>([]);
   const [highlightData, setHighlightData] = useState({} as HighLightData);
+  const [alertIsVisible, setAlertIsVisible] = useState(false);
 
   useFocusEffect(
     useCallback(() => {
@@ -137,12 +141,39 @@ export function Dashboard() {
     return format(new Date(lastTransaction), 'dd/MM/yy');
   }
 
+  function handleToggleAlertDialog() {
+    setAlertIsVisible(prev => !prev);
+  }
+
   return (
     <S.Container>
+      <Modal
+        transparent
+        animationType="fade"
+        visible={alertIsVisible}
+        onRequestClose={handleToggleAlertDialog}>
+        <AlertDialog.Overlay onRequestClose={handleToggleAlertDialog}>
+          <AlertDialog.Content
+            title="Sair do app"
+            description="Deseja realmente sair do app>">
+            <AlertDialog.Button
+              type="cancel"
+              onPress={handleToggleAlertDialog}
+            />
+
+            <AlertDialog.Button type="confirm" onPress={signOut} />
+          </AlertDialog.Content>
+        </AlertDialog.Overlay>
+      </Modal>
+
       <S.Header>
         <S.HeaderTop>
           <S.UserInfo>
-            <S.Photo source={{ uri: userData.picture }} />
+            <S.Photo
+              source={
+                userData.picture ? { uri: userData.picture } : ProfileDefaultImg
+              }
+            />
 
             <S.User>
               <S.UserGreeting>Olá, </S.UserGreeting>
@@ -151,7 +182,7 @@ export function Dashboard() {
           </S.UserInfo>
 
           <S.ContainerLogout>
-            <S.Logout onPress={signOut}>
+            <S.Logout onPress={handleToggleAlertDialog}>
               <S.Icon name="power" size={24} color={theme.colors.attention} />
             </S.Logout>
           </S.ContainerLogout>

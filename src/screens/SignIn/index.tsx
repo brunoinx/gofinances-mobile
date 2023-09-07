@@ -22,7 +22,9 @@ WebBrowser.maybeCompleteAuthSession();
 
 export function SignIn() {
   const { handleUpdateUserData, handleSocialAuthentication } = useAuth();
-  const [_, response, promptAsync] = Google.useAuthRequest({
+
+  // eslint-disable-next-line no-unused-vars
+  const [, response, promptAsync] = Google.useAuthRequest({
     clientId: WEB_CLIENT_ID,
     androidClientId: ANDROID_GOOGLE_CLIENT_ID,
     iosClientId: IOS_GOOGLE_CLIENT_ID,
@@ -83,6 +85,8 @@ export function SignIn() {
           <SignInSocialButton
             title="Entrar com Google"
             iconName="google"
+            loading={!!response}
+            enabled={!response}
             onPress={handlePressSignIn}
           />
 

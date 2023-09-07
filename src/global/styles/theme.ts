@@ -17,6 +17,14 @@ export default {
     background: '#F0F2F5',
 
     shadow: 'rgba(0,0,0,0.4)',
+    overlay: 'rgba(54, 63, 95, 0.4)',
+  },
+
+  layers: {
+    base: 10,
+    overlay: 20,
+    modal: 30,
+    alwaysOnTop: 50,
   },
 
   fonts: {
