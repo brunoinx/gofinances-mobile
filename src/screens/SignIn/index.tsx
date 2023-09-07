@@ -5,24 +5,25 @@ import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
 import {
   ANDROID_GOOGLE_CLIENT_ID,
-  EXPO_CLIENT_ID,
   IOS_GOOGLE_CLIENT_ID,
+  WEB_CLIENT_ID,
 } from '@env';
 
 import { useAuth } from '@/hooks/useAuth';
 import { getUserStorage } from '@/storage/user';
 import { SignInSocialButton } from '@/components/SignInSocialButton';
+import { requestGoogleUserData } from '@/services/requestGoogleUserData';
 
 import LogoSvg from '@/assets/logo.svg';
+
 import * as S from './styles';
-import { requestGoogleUserData } from '@/services/requestGoogleUserData';
 
 WebBrowser.maybeCompleteAuthSession();
 
 export function SignIn() {
   const { handleUpdateUserData, handleSocialAuthentication } = useAuth();
   const [_, response, promptAsync] = Google.useAuthRequest({
-    expoClientId: EXPO_CLIENT_ID,
+    clientId: WEB_CLIENT_ID,
     androidClientId: ANDROID_GOOGLE_CLIENT_ID,
     iosClientId: IOS_GOOGLE_CLIENT_ID,
   });
@@ -54,6 +55,10 @@ export function SignIn() {
     }
   }
 
+  async function handlePressSignIn() {
+    await promptAsync();
+  }
+
   return (
     <S.Container>
       <S.Header>
@@ -78,7 +83,7 @@ export function SignIn() {
           <SignInSocialButton
             title="Entrar com Google"
             iconName="google"
-            onPress={() => promptAsync()}
+            onPress={handlePressSignIn}
           />
 
           {Platform.OS === 'ios' && (
