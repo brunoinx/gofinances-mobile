@@ -154,7 +154,7 @@ export function Register() {
             />
           </View>
 
-          <Button title="Enviar" onPress={handleSubmit(handleRegister)} />
+          <Button title="Enviar" onPress={() => handleSubmit(handleRegister)} />
         </S.Form>
 
         <Modal

@@ -1,3 +1,4 @@
+import { TextInput } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import styled, { css } from 'styled-components/native';
 
@@ -5,7 +6,7 @@ type Props = {
   error: boolean;
 };
 
-export const InputContainer = styled.TextInput<Props>`
+export const InputContainer = styled(TextInput)<Props>`
   ${({ theme, error }) => css`
     width: 100%;
     height: 56px;

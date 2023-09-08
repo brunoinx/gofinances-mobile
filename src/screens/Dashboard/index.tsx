@@ -155,7 +155,7 @@ export function Dashboard() {
         <AlertDialog.Overlay onRequestClose={handleToggleAlertDialog}>
           <AlertDialog.Content
             title="Sair do app"
-            description="Deseja realmente sair do app>">
+            description="Deseja realmente sair do app?">
             <AlertDialog.Button
               type="cancel"
               onPress={handleToggleAlertDialog}
@@ -221,7 +221,7 @@ export function Dashboard() {
           renderItem={({ item }) => <Moviment data={item} />}
           ListEmptyComponent={<EmptyMessage />}
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ height: '100%', paddingBottom: 20 }}
+          contentContainerStyle={{ flexGrow: 1, paddingBottom: 20 }}
         />
       </S.Content>
     </S.Container>

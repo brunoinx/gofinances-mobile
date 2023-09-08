@@ -23,8 +23,8 @@ export const Content = styled.View`
   ${({ theme }) => css`
     width: ${width * 0.8}px;
     margin: 0 auto;
-    border-radius: 10px;
-    padding: 22px 14px 16px;
+    border-radius: 8px;
+    padding: 32px 14px 16px;
     z-index: ${theme.layers.modal};
     background-color: ${theme.colors.background};
 
@@ -36,7 +36,7 @@ export const Content = styled.View`
 export const Title = styled.Text`
   ${({ theme }) => css`
     text-align: center;
-    font-size: ${RFValue(15)}px;
+    font-size: ${RFValue(16)}px;
     font-family: ${theme.fonts.text_500};
     color: ${theme.colors.title};
   `};
@@ -45,7 +45,7 @@ export const Title = styled.Text`
 export const Description = styled.Text`
   ${({ theme }) => css`
     text-align: center;
-    font-size: ${RFValue(14)}px;
+    font-size: ${RFValue(13)}px;
     font-family: ${theme.fonts.text_400};
     color: ${theme.colors.text};
   `};
@@ -53,7 +53,7 @@ export const Description = styled.Text`
 
 export const Footer = styled.View`
   gap: 12px;
-  margin-top: 30px;
+  margin-top: 36px;
   align-self: flex-end;
   flex-direction: row;
 `;
