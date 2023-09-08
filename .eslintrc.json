@@ -39,7 +39,6 @@
     "dist/",
     "build/",
     "coverage/",
-    "metro.config.js",
-    "babel.config.js"
+    "*.config.js"
   ]
 }
